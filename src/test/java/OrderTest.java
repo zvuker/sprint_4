@@ -1,14 +1,13 @@
-import ru.yandex.praktikum.samokat.HomePage;
-import ru.yandex.praktikum.samokat.OrderPage;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import ru.yandex.praktikum.samokat.HomePage;
+import ru.yandex.praktikum.samokat.OrderPage;
 
 @RunWith(Parameterized.class)
 public class OrderTest {
@@ -37,80 +36,74 @@ public class OrderTest {
         };
     }
 
-    @Test
-    public void checkOrderTopButton() {
+    @Before
+    public void setUp() {
         //драйвер firefox
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new FirefoxDriver();
+        driver = new FirefoxDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
-        //гл. страница, форма заказа
-        HomePage HomePage = new HomePage(driver);
+        // Принятие куки
+        OrderPage orderPage = new OrderPage(driver);
+        orderPage.clickCookie();
+    }
 
-        HomePage.pressTopButtonOrder();
-
-        OrderPage OrderPage = new OrderPage(driver);
-        //принять куки
-        OrderPage.clickCookie();
-        //заполнение
-        OrderPage.inputName(name);
-        OrderPage.inputLastName(lastName);
-        OrderPage.inputAdress(city);
-        OrderPage.inputMetro(metro);
-        OrderPage.inputPhone(phone);
-        OrderPage.clickNext();
-        OrderPage.waitSecondPageOrder();
-        OrderPage.inputDate("05.11.2023");
-        OrderPage.inputRenatalPeriod("трое суток");
-        OrderPage.clickChoiceColor();
-        OrderPage.inputComment("не кантовать");
-        OrderPage.clickOrderButton();
-        OrderPage.waitConfirmOrderForm();
-
-        OrderPage.clickNoButton();
-
+    @After
+    public void tearDown() {
         driver.quit();
+    }
 
-        //оформление заказа
+    @Test
+    public void checkOrderTopButton() {
+        //гл. страница, форма заказа
+        HomePage homePage = new HomePage(driver);
 
+        homePage.pressTopButtonOrder();
+
+        OrderPage orderPage = new OrderPage(driver);
+
+        //заполнение
+        orderPage.inputName(name);
+        orderPage.inputLastName(lastName);
+        orderPage.inputAdress(city);
+        orderPage.inputMetro(metro);
+        orderPage.inputPhone(phone);
+        orderPage.clickNext();
+        orderPage.waitSecondPageOrder();
+        orderPage.inputDate("11.11.2023");
+        orderPage.inputRenatalPeriod("трое суток");
+        orderPage.clickChoiceColor();
+        orderPage.inputComment("не кантовать");
+        orderPage.clickOrderButton();
+        orderPage.waitConfirmOrderForm();
+        orderPage.clickNoButton();
     }
 
     @Test
     public void checkOrderBottomButton() {
-        //драйвер
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new FirefoxDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-
         //гл. страница, форма заказа
-        HomePage HomePage = new HomePage(driver);
-        OrderPage OrderPage = new OrderPage(driver);
-        //принять куки
-        OrderPage.clickCookie();
-        HomePage.pressBottomButtonOrder();
+        HomePage homePage = new HomePage(driver);
+        OrderPage orderPage = new OrderPage(driver);
+        homePage.pressBottomButtonOrder();
 
         //заполнение
-        OrderPage.inputName(name);
-        OrderPage.inputLastName(lastName);
-        OrderPage.inputAdress(city);
-        OrderPage.inputMetro(metro);
-        OrderPage.inputPhone(phone);
-        OrderPage.clickNext();
-        OrderPage.waitSecondPageOrder();
-        OrderPage.inputDate("05.11.2023");
-        OrderPage.inputRenatalPeriod("трое суток");
-        OrderPage.clickChoiceColor();
-        OrderPage.inputComment("не кантовать");
-        OrderPage.clickOrderButton();
-        OrderPage.waitConfirmOrderForm();
-
-        OrderPage.clickYesButton();
-        OrderPage.waitOrderComleteForm();
-        OrderPage.clickSeeStatusButton();
-        OrderPage.waitStatusOrderPage();
-
-        driver.quit();
+        orderPage.inputName(name);
+        orderPage.inputLastName(lastName);
+        orderPage.inputAdress(city);
+        orderPage.inputMetro(metro);
+        orderPage.inputPhone(phone);
+        orderPage.clickNext();
+        orderPage.waitSecondPageOrder();
+        orderPage.inputDate("11.11.2023");
+        orderPage.inputRenatalPeriod("трое суток");
+        orderPage.clickChoiceColor();
+        orderPage.inputComment("не кантовать");
+        orderPage.clickOrderButton();
+        orderPage.waitConfirmOrderForm();
+        orderPage.clickYesButton();
+        orderPage.waitOrderComleteForm();
+        orderPage.clickSeeStatusButton();
+        orderPage.waitStatusOrderPage();
     }
 }

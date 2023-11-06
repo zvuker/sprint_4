@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 public class HomePage {
 
     protected WebDriver driver;
@@ -16,9 +15,6 @@ public class HomePage {
 
     //кнопка заказ
     private By botomButtonOrder = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM']");
-
-
-
 
     public HomePage(WebDriver driver) {
 
@@ -36,6 +32,4 @@ public class HomePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
     }
-
-
 }

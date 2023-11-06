@@ -1,11 +1,9 @@
 package ru.yandex.praktikum.samokat;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -25,7 +23,6 @@ public class OrderPage {
     private By rentalPeriodField = By.xpath(".//div[@class = 'Dropdown-control']");
     private By choiceColor= By.xpath(".//label[1]/input[@class = 'Checkbox_Input__14A2w']");
     private By commentField = By.xpath(".//input[@placeholder = 'Комментарий для курьера']");
-
     private By orderButton = By.xpath(".//button[2][text() = 'Заказать']");
     private By cofirmOrderForm = By.xpath(".//div[@class = 'Order_Modal__YZ-d3']");
     private By yesButton = By.xpath(".//button[2][text() = 'Да']");
@@ -39,116 +36,97 @@ public class OrderPage {
     }
 
     public void inputName(String name) {
-
         WebElement element = driver.findElement(nameField);
         element.sendKeys(name);
     }
 
     public void inputLastName(String lastName) {
-
         WebElement element = driver.findElement(lastNameField);
         element.sendKeys(lastName);
     }
 
     public void inputAdress(String adress) {
-
         WebElement element = driver.findElement(adressField);
         element.sendKeys(adress);
     }
 
     public void inputMetro(String metro) {
-
         WebElement element = driver.findElement(metroField);
         element.click();
         driver.findElement(By.xpath(".//*[text()='" + metro + "']")).click();
     }
 
     public void inputPhone(String phone) {
-
         WebElement element = driver.findElement(phoneField);
         element.sendKeys(phone);
     }
 
     public void clickNext() {
-
         WebElement element = driver.findElement(nextButton);
         element.click();
     }
     public void clickCookie() {
-
         WebElement element = driver.findElement(cookieButton);
         element.click();
     }
 
     public void waitSecondPageOrder() {
-
         WebElement element = driver.findElement(dateField);
         new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(dateField));
     }
     public void inputDate(String date) {
-
         WebElement element = driver.findElement(dateField);
         element.sendKeys(date);
-        driver.findElement(By.xpath(".//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div[7]")).click();
+        driver.findElement(By.xpath(".//*[contains(@class, 'react-datepicker__day--011')]")).click();
     }
 
     public void inputRenatalPeriod(String period) {
-
         WebElement element = driver.findElement(rentalPeriodField);
         element.click();
         driver.findElement(By.xpath(".//*[text()='" + period + "']")).click();
     }
 
     public void clickChoiceColor() {
-
         WebElement element = driver.findElement(choiceColor);
         element.click();
     }
 
     public void inputComment(String comment) {
-
         WebElement element = driver.findElement(commentField);
         element.sendKeys(comment);
     }
 
     public void clickOrderButton() {
-
         WebElement element = driver.findElement(orderButton);
         element.click();
     }
 
     public void waitConfirmOrderForm() {
-
         WebElement element = driver.findElement(cofirmOrderForm);
         new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(cofirmOrderForm));
     }
 
     public void clickYesButton() {
-
         WebElement element = driver.findElement(yesButton);
         element.click();
     }
     public void clickNoButton() {
-
         WebElement element = driver.findElement(noButton);
         element.click();
     }
     public void waitOrderComleteForm() {
-
         WebElement element = driver.findElement(orderComleteForm);
         new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(orderComleteForm));
     }
 
     public void clickSeeStatusButton() {
-
         WebElement element = driver.findElement(seeStatusButton);
         element.click();
     }
     public void waitStatusOrderPage() {
-
         WebElement element = driver.findElement(statusOrderPage);
         new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(statusOrderPage));

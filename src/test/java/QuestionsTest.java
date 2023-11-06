@@ -1,20 +1,20 @@
-import ru.yandex.praktikum.samokat.QuestionsPage;
 import org.junit.Test;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import ru.yandex.praktikum.samokat.QuestionsPage;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-
 public class QuestionsTest {
-
     private final String text;
     private final String link;
+    private WebDriver driver;
+    private QuestionsPage questionsPage;
 
     public QuestionsTest(String text, String link) {
         this.text = text;
@@ -37,20 +37,25 @@ public class QuestionsTest {
     }
 
     @Test
-    public void checkQuestions  () {
+    public void checkQuestions() {
         // драйвер хром
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver = new ChromeDriver(options);
+        driver.get("https://qa-scooter.praktikum-services.ru");
 
-        QuestionsPage QuestionsPage = new QuestionsPage(driver);
-        //проверить вопросы о важном
-        QuestionsPage.pressQue(link);
-        //проверить текст ответа на вопрос
-        assertTrue(QuestionsPage.getTextQue(text).contains(text));
-        //закрыть браузер
-        driver.quit();
+        questionsPage = new QuestionsPage(driver);
+        // проверить вопросы о важном
+        questionsPage.pressQue(link);
+        // проверить текст ответа на вопрос
+        assertTrue(questionsPage.getTextQue(text).contains(text));
+    }
+
+    @After
+    public void tearDown() {
+        // Закрыть браузер после завершения теста
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
-

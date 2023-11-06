@@ -8,13 +8,11 @@ import org.openqa.selenium.WebElement;
 public class QuestionsPage {
 
     static WebDriver driver;
-
     //вопросы о важном
     private  String pathQuest;
     private  String queText;
 
     //самокаты
-
     public QuestionsPage(WebDriver driver) {
         this.driver = driver;
     }
